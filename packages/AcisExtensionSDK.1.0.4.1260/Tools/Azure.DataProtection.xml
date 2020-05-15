@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "Azure.DataProtection"
+    </assembly>
+    <members>
+        <member name="M:Azure.DataProtection.Protector.Unprotect(System.Byte[],Azure.DataProtection.Model.UnprotectRequestContext)">
+            <summary>
+Unprotects data.
+</summary>
+            <param name="data">The protected blob to unprotect.</param>
+            <param name="requestContext">The request context to use for the operation.</param>
+            <returns>The unprotected plaintext data.</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.Unprotect(System.Byte[])">
+            <summary>
+Unprotects data.
+</summary>
+            <param name="data">The protected blob to unprotect.</param>
+            <returns>The unprotected plaintext data.</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.Open(System.Byte[])">
+            <summary>
+Opens Protection Descriptor from an encrypted blob.
+</summary>
+            <param name="encrypted">Encrypted blob.</param>
+            <returns>Instance of the Protection Descriptor</returns>
+            <summary>
+Opens Protection Descriptor from an encrypted blob.
+</summary>
+            <param name="encrypted">Encrypted blob.</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.CreateInKeyStore(System.String,System.String)">
+            <summary>
+Helper function that creates Protection Descriptor for a persisted key in KeyStore.
+</summary>
+            <param name="keyName">Persisted key name</param>
+            <param name="storeName">Key Store name</param>
+            <returns>Instance of the Protection Descriptor</returns>
+            <summary>
+Helper function that creates Protection Descriptor for a persisted key in KeyStore.
+</summary>
+            <param name="keyName">Persisted key name</param>
+            <param name="storeName">Key Store name</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.Create(System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+Helper function that creates Protection Descriptor for a certificate.
+</summary>
+            <param name="certificate">A certificate, which Public Key will be used to protect a secret.</param>
+            <returns>Instance of the Protection Descriptor</returns>
+            <summary>
+Helper function that creates Protection Descriptor for a certificate.
+</summary>
+            <param name="certificate">A certificate, which Public Key will be used to protect a secret.</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.Create(System.String)">
+            <summary>
+Creates a protection descriptor with a specified string.
+</summary>
+            <param name="descriptor">The protection descriptor, represented as a string.</param>
+            <returns>A <see cref="T:Azure.DataProtection.Model.IProtectionDescriptor" /> created from <paramref name="descriptor" />.</returns>
+            <summary>
+Creates Protection Descriptor from the string value.
+</summary>
+            <param name="descriptor">Protection Descriptor string</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.InitializeDefaultProviders">
+            <summary>
+Initialize default Protection Providers.
+    CERTIFICATE
+    KEYSTORE
+    LOCAL=user
+    LOCAL=machine
+</summary>
+            <summary>
+Initialize default Protection Providers.
+    CERTIFICATE
+    LOCAL=user
+    LOCAL=machine
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.Protector.#ctor">
+            <summary>
+Initializes a new instance of the <see cref="T:Azure.DataProtection.Descriptor" /> class.
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.Descriptor.Protect(System.Byte[],Azure.DataProtection.Model.ProtectRequestContext)">
+            <summary>
+Protects data using a specified protection descriptor.
+</summary>
+            <param name="data">The plaintext data to protect.</param>
+            <param name="requestContext">The request context to use for the operation.</param>
+            <returns>The protected blob.</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Descriptor.Protect(System.Byte[])">
+            <summary>
+Protects data using a specified protection descriptor.
+</summary>
+            <param name="data">The plaintext data to protect.</param>
+            <returns>The protected blob.</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Descriptor.#ctor(System.String)">
+            <summary>
+Initializes a new instance of the <see cref="T:Azure.DataProtection.Descriptor" /> class.
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.KeyStoreFactory.Open(System.String)">
+            <summary>
+Opens Key Store provider.
+</summary>
+            <param name="storeName">The name of Key Store provider</param>
+            <returns>Instance of the Key Store</returns>
+            <summary>
+Opens Key Store provider.
+</summary>
+            <param name="storeName">The name of Key Store provider</param>
+            <returns>Instance of the Key Store</returns>
+        </member>
+        <member name="M:Azure.DataProtection.KeyStoreFactory.#ctor">
+            <summary>
+Default constructor
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.KeyStore.CreateKeyDerivationSp800d108(Azure.DataProtection.Model.KeyStoreFlags,System.String,System.String,System.Byte[],System.String)">
+            <summary>
+Creates persisted KDF Parameters tobe used for key derivation.
+</summary>
+            <param name="flags">NCrypt API flags</param>
+            <param name="kdfLabel">KDF label parameter</param>
+            <param name="keyMaterial">KDF context parameter</param>
+            <param name="keyMaterial">KDF key material</param>
+            <param name="keyName">Key name to be created</param>
+            <summary>
+Creates persisted KDF Parameters tobe used for key derivation.
+</summary>
+            <param name="keyName">Key name to be created</param>
+            <param name="kdfLabel">KDF label parameter</param>
+            <param name="kdfLabel">KDF context parameter</param>
+            <param name="kdfLabel">KDF key material</param>
+            <param name="flags">NCrypt API flags</param>
+        </member>
+        <member name="M:Azure.DataProtection.KeyStore.EnumerateKeysInfo(Azure.DataProtection.Model.KeyStoreFlags)">
+            <summary>
+Enumerate keys in the Key Store
+</summary>
+            <param name="flags">NCrypt API flags</param>
+            <returns>List of persisted key names</returns>
+            <summary>
+Enumerate keys in the Key Store
+</summary>
+            <param name="flags">NCrypt API flags</param>
+            <returns>List of persisted key names</returns>
+        </member>
+        <member name="M:Azure.DataProtection.KeyStore.#ctor(System.String)">
+            <summary>
+Default constructor
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.KeyInfo.#ctor(System.String,System.String,Azure.DataProtection.Model.KeyStoreFlags)">
+            <summary>
+Default constructor
+</summary>
+        </member>
+    </members>
+</doc>

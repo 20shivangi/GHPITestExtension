@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "Azure.DataProtection.Provider.Kds"
+    </assembly>
+    <members>
+        <member name="M:Azure.DataProtection.Provider.Kds.DstsProtector.ClearKeyCache">
+            <summary>
+Clears the cache of keys kept on the filesystem.
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.Provider.Kds.DstsProtector.Initialize(Azure.DataProtection.Model.IDstsSubjectNameIdentityConfig,Azure.DataProtection.Model.RegisterProviderFlags)">
+            <summary>
+Initialize the dSTS provider and use a subject name/issuer-based dSTS client identity
+when authenticating to the dKDS service.
+</summary>
+            <param name="dstsConfig">The <see cref="T:Azure.DataProtection.Model.IDstsSubjectNameIdentityConfig" /> that describes how to authenticate to the dKDS service.</param>
+            <param name="flags">The flags to specify the initialization behavior.</param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="dstsConfig" /> is null.</exception>
+            <exception cref="T:System.InvalidOperationException">The dSTS protector could not be initialized successfully.</exception>
+        </member>
+        <member name="M:Azure.DataProtection.Provider.Kds.DstsProtector.Initialize(Azure.DataProtection.Model.IDstsIdentityConfig,Azure.DataProtection.Model.RegisterProviderFlags)">
+            <summary>
+Initialize the dSTS provider and use a certificate-based dSTS client identity
+when authenticating to the dKDS service.
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.Provider.Kds.DstsProtector.Initialize(Azure.DataProtection.Model.IManagedServiceIdentityConfig,Azure.DataProtection.Model.RegisterProviderFlags)">
+            <summary>
+Initialize the dSTS provider and use a dSTS managed service identity (MSI)
+when authenticating to the dKDS service.
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.Provider.Kds.DstsProtector.Initialize(Azure.DataProtection.Model.RegisterProviderFlags)">
+            <summary>
+Initialize the dSTS provider and use the executing user's Windows credentials
+when authenticating to the dKDS service.
+</summary>
+        </member>
+        <member name="M:Azure.DataProtection.Provider.Kds.DstsProtector.#ctor">
+            <summary>
+Default constructor
+</summary>
+        </member>
+    </members>
+</doc>

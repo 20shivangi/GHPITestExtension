@@ -1,0 +1,1508 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Security.ConfigurationManagement.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment">
+            <summary>
+            Specifies the dSCM environment against which to authenticate.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment.Local">
+            <summary>
+            The localhost environment.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment.Test">
+            <summary>
+            The test environment.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment.Ppe">
+            <summary>
+            The pre-production environment.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment.Prod">
+            <summary>
+            The production environment.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment.NCTest">
+            <summary>
+            The National Clouds test environment
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment.Prod4">
+            <summary>
+            dSCM4
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext">
+            <summary>
+            Represents a context in which a client is authenticated to dSCM via dSTS.
+            The client is authenticated using an active authentication protocol.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment,System.Collections.Generic.IEnumerable{System.String},System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext"/> class by using Windows Authentication.
+            </summary>
+            <param name="environment">The dSCM endpoint against which to authenticate.</param>
+            <param name="trustedStsCertificateThumbprints">Optional. List of trusted dSTS certificate thumbprints.</param>
+            <param name="handler">Optional. A custom handler for communication with the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment,System.Security.Cryptography.X509Certificates.X509Certificate2,System.IdentityModel.Tokens.SecurityToken,System.Collections.Generic.IEnumerable{System.String},System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext"/> class by using certificate-based authentication
+            when the client's home dSTS is the same as the service's.
+            </summary>
+            <param name="environment">The dSCM endpoint against which to authenticate.</param>
+            <param name="clientCertificate">The client's X.509 certificate.</param>
+            <param name="actAsToken">ActAs security token</param>
+            <param name="trustedStsCertificateThumbprints">Optional. List of trusted dSTS certificate thumbprints.</param>
+            <param name="handler">Optional. A custom handler for communication with the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Uri,System.IdentityModel.Tokens.SecurityToken,System.Collections.Generic.IEnumerable{System.String},System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext"/> class by using certificate-based authentication
+            when the client's home dSTS differs from the service's home dSTS.
+            </summary>
+            <param name="environment">The dSCM endpoint against which to authenticate.</param>
+            <param name="clientCertificate">The client's X.509 certificate.</param>
+            <param name="clientHomeStsEndpoint">The client's home dSTS certificate endpoint.</param>
+            <param name="actAsToken">ActAs security token</param>
+            <param name="trustedStsCertificateThumbprints">Optional. List of trusted dSTS certificate thumbprints.</param>
+            <param name="handler">Optional. A custom handler for communication with the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment,System.String,System.IdentityModel.Tokens.SecurityToken,System.Collections.Generic.IEnumerable{System.String},System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext"/> class by using MSI authentication
+            </summary>
+            <param name="environment">The dSCM endpoint against which to authenticate.</param>
+            <param name="msiName">Name of the MSI</param>
+            <param name="actAsToken">ActAs security token</param>
+            <param name="trustedStsCertificateThumbprints">Optional. List of trusted dSTS certificate thumbprints.</param>
+            <param name="handler">Optional. A custom handler for communication with the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String[]},System.String,System.String,System.Uri,System.IdentityModel.Tokens.SecurityToken,System.Collections.Generic.IEnumerable{System.String},System.Net.Http.HttpMessageHandler,System.String)">
+            <summary>
+            For internal use -- prefer other constructors.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri">
+            <summary>
+            Base URI for the service against which the authenticated client can perform API calls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.AuthenticationMetadataUri">
+            <summary>
+            URI for the service where clients can request dSTS authentication metdata.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.GetAsync(System.String)">
+            <summary>
+            Performs a GET operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the GET operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.GetStringAsync(System.String)">
+            <summary>
+            Performs a GET operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the GET operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <returns>The requested content from the service as a string.</returns>
+            <exception cref="T:System.Exception">Thrown when the service returns an error response.</exception>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.GetAsync``1(System.String)">
+            <summary>
+            Performs a GET operation on the given URI.
+            </summary>
+            <typeparam name="T">The JSON-serializable object type to GET from the service.</typeparam>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the GET operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <returns>The requested object from the service.</returns>
+            <exception cref="T:System.Exception">Thrown when the service returns an error response.</exception>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PutAsync(System.String,System.Object)">
+            <summary>
+            Performs a PUT operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the PUT operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <param name="data">The JSON-serializable object to PUT on the service.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PutAsync(System.String)">
+            <summary>
+            Performs a PUT operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the PUT operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PostMultipartAsync(System.String,System.Object,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Performs a POST operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the POST operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <param name="data">The JSON-serializable object to PUT on the service.</param>
+            <param name="dataName">The multipart content name to use for the data object.</param>
+            <param name="paths">The paths of the files to upload.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PutMultipartAsync(System.String,System.Object,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Performs a PUT operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the PUT operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <param name="data">The JSON-serializable object to PUT on the service.</param>
+            <param name="dataName">The multipart content name to use for the data object.</param>
+            /// <param name="paths">The paths of the files to upload.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PostAsync``1(System.String,System.Object)">
+            <summary>
+            Performs a POST operation on the given query.
+            Takes an object as parameter for the query
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the GET operation should be performed.
+            <paramref name="data">Object acting as parameter for the query</paramref>
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <param name="data">The JSON-serializable object acting as the query parameter.</param>
+            <returns>The response object from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PutAsync``1(System.String,System.Object)">
+            <summary>
+            Performs a PUT operation on the given query.
+            Takes an object as parameter for the query
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the GET operation should be performed.
+            <paramref name="data">Object acting as parameter for the query</paramref>
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <param name="data">The JSON-serializable object acting as the query parameter.</param>
+            <returns>The response object from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.PostAsync(System.String,System.Object)">
+            <summary>
+            Performs a POST operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the POST operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <param name="data">The JSON-serializable object to POST to the service.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.DeleteAsync``1(System.String)">
+            <summary>
+            Performs a DELETE operation on the given query.
+            Takes an object as parameter for the query
+            </summary>
+            <typeparam name="T">The JSON-serializable object type to parse from DELETE response from the service.</typeparam>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the DELETE operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <returns>The requested object from the service.</returns>
+            <exception cref="T:System.Exception">Thrown when the service returns an error response.</exception>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.DeleteAsync(System.String)">
+            <summary>
+            Performs a DELETE operation on the given URI.
+            </summary>
+            <param name="query">URI string relative to <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/> where the DELETE operation should be performed.
+            Note: if <see paramref="query"/> contains a leading forward slash, the request will be made relative to the service's base URI
+            rather than <see cref="P:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.ApiUri"/>.</param>
+            <returns>The response from the service.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.Dispose">
+            <summary>
+            Disposes this instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext.Dispose(System.Boolean)">
+            <summary>
+            Disposes this instance.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IAccessPolicyTypesProxy">
+            <summary>
+            Provides functionality for querying Access Policy Types
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IAccessPolicyTypesProxy.GetAllAsync">
+            <summary>
+            Retrieves all the Access Policy Types
+            </summary>
+            <returns>Access Policy Types</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IActiveDirectoryProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IActiveDirectoryProxy.GetUsernames(System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="userSids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IConfigurationRequestProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IConfigurationRequestProxy.Get(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="waitForCompletion"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.ActiveDirectory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.ConfigurationRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.Dsts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.Jit">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.AccessMonitoring">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.ServiceMetadata">
+            <summary>
+            Provides functionality for querying metadata of onboarded services.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.DsmsProxy">
+            <summary>
+            Provides functionality for managing dsms configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDscmProxy.TimeoutSeconds">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsFolderManagementProxy">
+            <summary>
+            Provides functionality for managing dsms folder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsFolderManagementProxy.AddWhitelistAsync(System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Add whitelist to a folder.
+            </summary>
+            <param name="dsmsList">a list of dsms endpoints.</param>
+            <param name="folderId">Folder resource id.</param>
+            <param name="dnsWhitelist">values added to dns whitelist.</param>
+            <param name="deploymentSubscriptionList">values added to deploymentSubscription whitelist.</param>
+            <param name="storageAccountSubscriptionList">values added to storageAccountSubscription whitelist.</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsFolderManagementProxy.RemoveWhitelistAsync(System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Remove whitelist from a folder.
+            </summary>
+            <param name="dsmsList">a list of dsms endpoints.</param>
+            <param name="folderId">Folder resource id.</param>
+            <param name="dnsWhitelist">values added to dns whitelist.</param>
+            <param name="deploymentSubscriptionList">values added to deploymentSubscription whitelist.</param>
+            <param name="storageAccountSubscriptionList">values added to storageAccountSubscription whitelist.</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsFolderManagementProxy.GetRootFoldersAsync(System.String,System.String)">
+            <summary>
+            Retrieves a list of folders for a service.
+            </summary>
+            <param name="dsms">Dsms endpoint.</param>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsFolderManagementProxy.GetFolderContentsAsync(System.String)">
+            <summary>
+            Retrieves all children folders for a root folder.
+            </summary>
+            <param name="folderId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsFolderManagementProxy.GetFolderAsync(System.String)">
+            <summary>
+            Retrieves a folder by folder resource id.
+            </summary>
+            <param name="folderId">Folder resource id.</param>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsProxy">
+            <summary>
+            Provides functionality for managing dsms.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsProxy.DsmsFolderManagementProxy">
+            <summary>
+            Provides functionality for managing dsms folder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IDsmsProxy.GetDsmsEndpointListAsync">
+            <summary>
+            Retrieves a list of Dsms Endpoint.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IDstsProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDstsProxy.SecurityGroups">
+            <summary>
+            Provides functionality for managing Security Groups.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDstsProxy.ServiceAccounts">
+            <summary>
+            Provides functionality for managing Service Accounts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IDstsProxy.ServiceAccountGroups">
+            <summary>
+            Provides functionality for managing Service Account Groups.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IAmProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IAmProxy.AccessPolicyMaps">
+            <summary>
+            Provides functionality for managing Access Policy Maps.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IAmProxy.AccessPolicyTypes">
+            <summary>
+            Provides functionality for managing Access Policy Maps.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IJitProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.IJitProxy.PolicySets">
+            <summary>
+            Provides functionality for managing Policy Sets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IAccessPolicyMapsProxy">
+            <summary>
+            Provides functionality for querying Access Policy Maps of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IAccessPolicyMapsProxy.GetAsync(System.String,System.String)">
+            <summary>
+            Retrieves the Access Policy Map for an onboarded service from a given cloud
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public"</param>
+            <returns>Access Policy Map</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IAccessPolicyMapsProxy.UpdateAccessPolicyByAccessLevelAsync(System.String,System.String,System.String,System.String,Microsoft.Azure.Security.ConfigurationManagement.Am.Contracts.ApmAccessPolicy)">
+            <summary>
+            Submits a Configuration request for the Access Policy update for a given access level
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public"</param>
+            <param name="resourceType">Resource Type Name</param>
+            <param name="accessLevel">Access Level Name</param>
+            <param name="accessPolicy">AccessPolicyType to set</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IPolicySetsProxy">
+            <summary>
+            Provides functionality for querying JIT Policy Sets of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IPolicySetsProxy.GetAsync(System.String,System.String)">
+            <summary>
+            Retrieves the JIT Policy Set for an onboarded service from a given cloud
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public", "Blackforest", "Fairfax", "Mooncake"</param>
+            <returns>Policy Set</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IPolicySetsProxy.UpdateByResourceAsync(System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.Security.ConfigurationManagement.Jit.Contracts.Policy})">
+            <summary>
+            Submits a Configuration request for the Jit policies update for a given resource
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public", "Blackforest", "Fairfax", "Mooncake"</param>
+            <param name="resourceType">Resource Type Name</param>
+            <param name="policies">List of all policies for the resource type. Policies to be deleted should have PolicyId set to "DELETE". Policies to be added should have PolicyId set to ""</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IPolicySetsProxy.GetUpdateRequest(System.String,System.Boolean)">
+            <summary>
+            Gets a Policy Set Update Configuration Request
+            </summary>
+            <param name="configRequestId">Configuration Request Id</param>
+            <param name="waitForCompletion">wait for the configuration request completion before returning the request</param>
+            <returns>Configuration Request Object</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IPolicySetsProxy.GetAllUpdateRequest(System.String,System.String)">
+            <summary>
+            Gets all Policy Set Update Configuration Requests
+            </summary>
+            <param name="serviceTreeId">Service Tree ID filter for config requests</param>
+            <param name="status">Configuration Request Status</param>
+            <returns>Configuration Request Object</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IPolicySetsProxy.CancelUpdateRequest(System.String)">
+            <summary>
+            Cancel a Policy Set Update Configuration Request
+            </summary>
+            <param name="configRequestId">Configuration Request Id</param>
+            <returns>Configuration Request Object</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ISecurityGroupsProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ISecurityGroupsProxy.Release(System.Collections.Generic.IList{Microsoft.Azure.Security.ConfigurationManagement.Contracts.SecurityGroup},System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ISecurityGroupsProxy.ReleaseAsync(System.Collections.Generic.IList{Microsoft.Azure.Security.ConfigurationManagement.Contracts.SecurityGroup},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="groups"></param>
+            <param name="requesterName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ISecurityGroupsProxy.GetAll">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ISecurityGroupsProxy.Get(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="securityGroupName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy">
+            <summary>
+            Provides functionality for querying DSTS Service Accounts of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy.GetByIdAsync(System.String)">
+            <summary>
+            Retrieves a Service Account by Id
+            </summary>
+            <param name="accountId">The Service Account ID</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy.GetAllByServiceAsync(System.String)">
+            <summary>
+            Retrieves a list of Service Accounts for an onboarded service
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy.GetAllByGroupAsync(System.String)">
+            <summary>
+            Retrieves a list of all Service Accounts of a Service Account Group
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy.UpdateAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountChangeList)">
+            <summary>
+            Update Service Account
+            </summary>
+            <param name="accountId">Service Account Id</param>
+            <param name="changelist">List of changes to be made to the Service account</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy.CreateAsync(Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccount)">
+            <summary>
+            Create a Service Account
+            </summary>
+            <param name="account">Service Account</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountsProxy.DeleteAsync(System.String)">
+            <summary>
+            Delete Service Account
+            </summary>
+            <param name="accountId">Service Account Id</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy">
+            <summary>
+            Provides functionality for querying DSTS Service Client Identity Groups of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.GetAllByServiceAsync(System.String)">
+            <summary>
+            Retrieves Service client identity Groups for an onboarded service.
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.GetByIdAsync(System.String)">
+            <summary>
+            Retrieves a Service Client Identity Group for an onboarded service
+            </summary>
+            <param name="groupId">The Service Client Identity Group ID</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.CreateManagedServiceClientIdentityGroupAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateManagedServiceClientIdentityGroupRequest)">
+            <summary>
+            Create a Group which can contain only Dmsi credential type identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.CreateCertificateBasedServiceClientIdentityGroupAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateCertificateBasedServiceClientIdentityGroupRequest)">
+            <summary>
+            Create a Group which can contain only certificate based credential type identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.CreateEmptyServiceClientIdentityGroupAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateEmptyServiceClientIdentityGroupRequest)">
+            <summary>
+            Create a Group with no defined properties. This group can act as container for any type of identity.
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.CreateManagedGroupAndAddGroupDefinedServiceClientIdentitiesAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateManagedServiceClientIdentityGroupRequest,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a managed Service Client Identity Group and add group defined identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <param name="dstsInstances">Specific dSTS instances to create identities on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.CreateCertificateBasedGroupAndAddGroupDefinedServiceClientIdentitiesAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateCertificateBasedServiceClientIdentityGroupRequest,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a certificate based Service Client Identity Group and add group defined identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <param name="dstsInstances">Specific dSTS instances to create identities on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.UpdateGroupAndMemberAccountsAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.ServiceClientIdentityGroupChangeList)">
+            <summary>
+            Update Service Client Identity Group and its member accounts properties
+            </summary>
+            <param name="groupId">Service client identity Group Id</param>
+            <param name="changeList">List of changes to be made to the group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.UpdateGroupDefinitionOnlyAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.ServiceClientIdentityGroupChangeList)">
+            <summary>
+            Update Service Client Identity Group without updating its member accounts
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="changeList">List of changes to be made to the group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.AddGroupDefinedServiceClientIdentitiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Add new identities to a existing fully defined group. The identities will inherit properties from group
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="dstsInstances">List of dSTS regions to add identities to</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.AddMemberDefinedServiceClientIdentitiesAsync(System.String,System.Collections.Generic.List{Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.ServiceClientIdentity})">
+            <summary>
+            Add new identities to a existing group. If defined by group, the identities will inherit properties from group. Else  provided identities should contain missing detail
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="serviceClientIdentities">List of service client identities to add</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.MoveServiceClientIdentitiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Move specified existing service client identities to an existing Group if all are compatible.
+            This only moves the identities to the group but does not add any missing group properties to them.
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="serviceClientIdentityIds">List of service client identities to move to the group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.EnforceGroupPropertiesWhatIfAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluate Service Client Identity Group compatibility with the Service Client Identities, and get the list of changes that will be applied to them if group properties are enforced
+            </summary>
+            <param name="groupId">Service Client Identity Group Id</param>
+            <param name="serviceClientIdentityIds">List of service client identities to enforce properties on</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceClientIdentityGroupsProxy.EnforceGroupPropertiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Enforce Service Client Identity Group properties on the specified member service client identities if all are compatible
+            </summary>
+            <param name="groupId">Service client identity Group Id</param>
+            <param name="ids">List of service client identities to enforce properties on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy">
+            <summary>
+            Provides functionality for querying DSTS Service Account Groups of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.GetAllByServiceAsync(System.String)">
+            <summary>
+            Retrieves Service Account Groups for an onboarded service.
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.GetByIdAsync(System.String)">
+            <summary>
+            Retrieves a Service Account Groups for an onboarded service
+            </summary>
+            <param name="groupId">The Service Account Group ID</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.CreateAsync(Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroup)">
+            <summary>
+            Create a Service Account Group
+            </summary>
+            <param name="group">Service Account Group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.CreateGroupAndAddServiceAccountsAsync(Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroup,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAvailabilityStrategy,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a Service Account Group and add accounts based on the service availability strategy
+            </summary>
+            <param name="group">Service Account Group</param>
+            <param name="serviceAvailabilityStrategy">Service Availability Strategy</param>
+            <param name="regions">Specific dSTS instances to create accounts on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.UpdateGroupAndMemberAccountsAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroupChangeList)">
+            <summary>
+            Update Service Account Group and its member accounts properties
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="changelist">List of change sto be made to the Service account group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.UpdateAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroupChangeList)">
+            <summary>
+            Update Service Account Group without updating its member accounts
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="changelist">List of change sto be made to the Service account group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.DeleteGroupAndMemberAccountsAsync(System.String)">
+            <summary>
+            Delete Service Account Group and its member accounts
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.AddServiceAccountsAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Add service accounts to a Service Account Group
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="regions">List of unique dSTS regions to add service accounts to</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.MoveServiceAccountsAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Move specified service accounts to a Service Account Group if all are compatible.
+            This only moves the accounts to the group but does not add any missing group properties to them.
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountIds">List of service accounts to move to the group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.EnforceGroupPropertiesWhatIfAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluate Service Account Group compatibility with the Service Accounts, and get the list of changes that will be applied to them if group properties are enforced
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountIds">List of service accounts to enforce properties on</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.EnforceGroupPropertiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Enforce Service Account Group properties on the specified member service accounts if all are compatible
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountIds">List of service accounts to enforce properties on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceAccountGroupsProxy.UpdateServiceAccountsAsync(System.String,System.Collections.Generic.Dictionary{System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountChangeList})">
+            <summary>
+            Update Multiple Service Accounts of the group
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountChangelists">List of changes to be made to Service accounts</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceMetadataProxy">
+            <summary>
+            Provides functionality for querying metadata of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.IServiceMetadataProxy.Get(System.String)">
+            <summary>
+            Retrieves metadata for an onboarded service.
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyTypesProxy">
+            <summary>
+            Provides functionality for querying Access Policy Maps of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyTypesProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyTypesProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyTypesProxy.GetAllAsync">
+            <summary>
+            Retrieves all the Access Policy Types
+            </summary>
+            <returns>Access Policy Types</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ActiveDirectoryProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ActiveDirectoryProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ActiveDirectoryProxy.GetUsernames(System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="userSids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ConfigurationRequestProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ConfigurationRequestProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ConfigurationRequestProxy.Get(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="waitForCompletion"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Provides functionality for managing dsms folder.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy.AddWhitelistAsync(System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Add whitelist to a folder.
+            </summary>
+            <param name="dsmsList">a list of dsms endpoints.</param>
+            <param name="folderId">Folder resource id.</param>
+            <param name="dnsWhitelist">values added to dns whitelist.</param>
+            <param name="deploymentSubscriptionList">values added to deploymentSubscription whitelist.</param>
+            <param name="storageAccountSubscriptionList">values added to storageAccountSubscription whitelist.</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy.GetFolderAsync(System.String)">
+            <summary>
+            Retrieves a folder by folder resource id.
+            </summary>
+            <param name="folderId">Folder resource id.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy.GetFolderContentsAsync(System.String)">
+            <summary>
+            Retrieves all children folders for a root folder.
+            </summary>
+            <param name="folderId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy.GetRootFoldersAsync(System.String,System.String)">
+            <summary>
+            Retrieves a list of folders for a service.
+            </summary>
+            <param name="dsms">Dsms endpoint.</param>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsFolderManagementProxy.RemoveWhitelistAsync(System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Remove whitelist from a folder.
+            </summary>
+            <param name="dsmsList">a list of dsms endpoints.</param>
+            <param name="folderId">Folder resource id.</param>
+            <param name="dnsWhitelist">values added to dns whitelist.</param>
+            <param name="deploymentSubscriptionList">values added to deploymentSubscription whitelist.</param>
+            <param name="storageAccountSubscriptionList">values added to storageAccountSubscription whitelist.</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsProxy">
+            <summary>
+            Provides functionality for managing dsms configuration.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+             Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsProxy.DsmsFolderManagementProxy">
+            <summary>
+            Provides functionality for managing dsms folder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DsmsProxy.GetDsmsEndpointListAsync">
+            <summary>
+            Retrieves a list of Dsms Endpoint.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.DstsProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DstsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DstsProxy.SecurityGroups">
+            <summary>
+            Provides functionality for managing Security Groups.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DstsProxy.ServiceAccounts">
+            <summary>
+            Provides functionality for managing Service Accounts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DstsProxy.ServiceAccountGroups">
+            <summary>
+            Provides functionality for managing Service Account Groups.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.AmProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.AmProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.AmProxy.AccessPolicyMaps">
+            <summary>
+            Provides functionality for managing Access Policy Maps
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.AmProxy.AccessPolicyTypes">
+            <summary>
+            Provides functionality for managing Access Policy Types
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyMapsProxy">
+            <summary>
+            Provides functionality for querying Access Policy Maps of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyMapsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyMapsProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyMapsProxy.GetAsync(System.String,System.String)">
+            <summary>
+            Retrieves the Access Policy Map for an onboarded service from a given cloud
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public"</param>
+            <returns>Access Policy Map</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.AccessPolicyMapsProxy.UpdateAccessPolicyByAccessLevelAsync(System.String,System.String,System.String,System.String,Microsoft.Azure.Security.ConfigurationManagement.Am.Contracts.ApmAccessPolicy)">
+            <summary>
+            Submits a Configuration request for the Access Policy update for a given access level
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public"</param>
+            <param name="resourceType">Resource Type Name</param>
+            <param name="accessLevel">Access Level Name</param>
+            <param name="accessPolicy">AccessPolicyType to set</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy">
+            <summary>
+            Provides functionality for querying JIT Policy Sets of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy.GetAsync(System.String,System.String)">
+            <summary>
+            Retrieves the JIT Policy Set for an onboarded service from a given cloud
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public", "Blackforest", "Fairfax", "Mooncake"</param>
+            <returns>Policy Set</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy.UpdateByResourceAsync(System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.Security.ConfigurationManagement.Jit.Contracts.Policy})">
+            <summary>
+            Submits a Configuration request for the Jit policies update for a given resource
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+            <param name="cloud">Cloud Name: "Test", "Public", "Blackforest", "Fairfax", "Mooncake"</param>
+            <param name="resourceType">Resource Type Name</param>
+            <param name="policies">List of all policies for the resource type. Policies to be deleted should have PolicyId set to "DELETE". Policies to be added should have PolicyId set to ""</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy.GetUpdateRequest(System.String,System.Boolean)">
+            <summary>
+            Gets a Policy Set Update Configuration Request
+            </summary>
+            <param name="configRequestId">Configuration Request Id</param>
+            <param name="waitForCompletion">wait for the configuration request completion before returning the request</param>
+            <returns>Configuration Request Object</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy.GetAllUpdateRequest(System.String,System.String)">
+            <summary>
+            Gets all Policy Set Update Configuration Requests
+            </summary>
+            <param name="serviceTreeId">Service Tree ID filter for config requests</param>
+            <param name="status">Configuration Request Status</param>
+            <returns>Configuration Request Object</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.PolicySetsProxy.CancelUpdateRequest(System.String)">
+            <summary>
+            Cancel a Policy Set Update Configuration Request
+            </summary>
+            <param name="configRequestId">Configuration Request Id</param>
+            <returns>Configuration Request Object</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.JitProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.JitProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.JitProxy.PolicySets">
+            <summary>
+            Provides functionality for managing Jit Policy Sets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.SecurityGroupsProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.SecurityGroupsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.SecurityGroupsProxy.Release(System.Collections.Generic.IList{Microsoft.Azure.Security.ConfigurationManagement.Contracts.SecurityGroup},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="groups"></param>
+            <param name="requesterName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.SecurityGroupsProxy.ReleaseAsync(System.Collections.Generic.IList{Microsoft.Azure.Security.ConfigurationManagement.Contracts.SecurityGroup},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="groups"></param>
+            <param name="requesterName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.SecurityGroupsProxy.Get(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="securityGroupName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.SecurityGroupsProxy.GetAll">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy">
+            <summary>
+            Provides functionality for querying DSTS Service Accounts of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.GetByIdAsync(System.String)">
+            <summary>
+            Retrieves a Service Account by Id
+            </summary>
+            <param name="accountId">The Service Account ID</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.GetAllByServiceAsync(System.String)">
+            <summary>
+            Retrieves a list of Service Accounts for an onboarded service
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.GetAllByGroupAsync(System.String)">
+            <summary>
+            Retrieves a list of all Service Accounts of a Service Account Group
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.UpdateAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountChangeList)">
+            <summary>
+            Update Service Account
+            </summary>
+            <param name="accountId">Service Account Id</param>
+            <param name="changelist">List of changes to be made to the Service account</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.CreateAsync(Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccount)">
+            <summary>
+            Create a Service Account
+            </summary>
+            <param name="account">Service Account</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountsProxy.DeleteAsync(System.String)">
+            <summary>
+            Delete Service Account
+            </summary>
+            <param name="accountId">Service Account Id</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy">
+            <summary>
+            Provides functionality for querying DSTS Service Client Identity Groups of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.AddGroupDefinedServiceClientIdentitiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Add new identities to a existing group
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="dstsInstances">List of dSTS regions to add identities to</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.AddMemberDefinedServiceClientIdentitiesAsync(System.String,System.Collections.Generic.List{Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.ServiceClientIdentity})">
+            <summary>
+            Add new identities to a existing group. If defined by group, the identities will inherit properties from group. Else  provided identities should contain missing detail
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="serviceClientIdentities">List of service client identities to add</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.CreateManagedServiceClientIdentityGroupAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateManagedServiceClientIdentityGroupRequest)">
+            <summary>
+            Create a Group which can contain only Dmsi credential type identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.CreateCertificateBasedServiceClientIdentityGroupAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateCertificateBasedServiceClientIdentityGroupRequest)">
+            <summary>
+            Create a Group which can contain only certificate based credential type identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.CreateEmptyServiceClientIdentityGroupAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateEmptyServiceClientIdentityGroupRequest)">
+            <summary>
+            Create a Group with no defined properties. This group can act as container for any type of identity.
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.CreateManagedGroupAndAddGroupDefinedServiceClientIdentitiesAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateManagedServiceClientIdentityGroupRequest,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a managed Service Client Identity Group and add group defined identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <param name="dstsInstances">Specific dSTS instances to create identities on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.CreateCertificateBasedGroupAndAddGroupDefinedServiceClientIdentitiesAsync(Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.CreateCertificateBasedServiceClientIdentityGroupRequest,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a certificate based Service Client Identity Group and add group defined identities
+            </summary>
+            <param name="request">Request containing details of group</param>
+            <param name="dstsInstances">Specific dSTS instances to create identities on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.EnforceGroupPropertiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Enforce Service Client Identity Group properties on the specified member service client identities if all are compatible
+            </summary>
+            <param name="groupId">Service client identity Group Id</param>
+            <param name="ids">List of service client identities to enforce properties on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.EnforceGroupPropertiesWhatIfAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluate Service Client Identity Group compatibility with the Service Client Identities, and get the list of changes that will be applied to them if group properties are enforced
+            </summary>
+            <param name="groupId">Service Client Identity Group Id</param>
+            <param name="serviceClientIdentityIds">List of service client identities to enforce properties on</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.GetAllByServiceAsync(System.String)">
+            <summary>
+            Retrieves a list of Service Client Identity Groups for an onboarded service
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.GetByIdAsync(System.String)">
+            <summary>
+            Retrieves a Service Client Identity Group for an onboarded service
+            </summary>
+            <param name="groupId">The Service Client Identity Group ID</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.MoveServiceClientIdentitiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Move specified existing service client identities to an existing Group if all are compatible.
+            This only moves the identities to the group but does not add any missing group properties to them.
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="serviceClientIdentityIds">List of service client identities to move to the group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.UpdateGroupDefinitionOnlyAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.ServiceClientIdentityGroupChangeList)">
+            <summary>
+            Update Service Client Identity Group without updating its member accounts
+            </summary>
+            <param name="groupId">Group Id</param>
+            <param name="changeList">List of changes to be made to the group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceClientIdentityGroupsProxy.UpdateGroupAndMemberAccountsAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Dsts.Contracts.ServiceClientIdentityGroupChangeList)">
+            <summary>
+            Update Service Client Identity Group and its member accounts properties
+            </summary>
+            <param name="groupId">Service client identity Group Id</param>
+            <param name="changeList">List of changes to be made to the group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy">
+            <summary>
+            Provides functionality for querying DSTS Service Account Groups of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.GetAllByServiceAsync(System.String)">
+            <summary>
+            Retrieves a list of Service Account Groups for an onboarded service
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.GetByIdAsync(System.String)">
+            <summary>
+            Retrieves a Service Account Group by its Id
+            </summary>
+            <param name="groupId">The Service Account Group ID</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.CreateAsync(Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroup)">
+            <summary>
+            Create a Service Account Group
+            </summary>
+            <param name="group">Service Account Group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.CreateGroupAndAddServiceAccountsAsync(Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroup,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAvailabilityStrategy,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a Service Account Group and add accounts based on the service availability strategy
+            </summary>
+            <param name="group">Service Account Group</param>
+            <param name="serviceAvailabilityStrategy">Service Availability Strategy</param>
+            <param name="regions">Specific dSTS instances to create accounts on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.UpdateGroupAndMemberAccountsAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroupChangeList)">
+            <summary>
+            Update Service Account Group and its member accounts properties
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="changelist">List of changes to be made to the Service account group</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.UpdateAsync(System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountGroupChangeList)">
+            <summary>
+            Update Service Account Group without updating its member accounts
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="changelist">List of changes to be made to the Service account group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.DeleteGroupAndMemberAccountsAsync(System.String)">
+            <summary>
+            Delete Service Account Group and its member accounts
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.AddServiceAccountsAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Add service accounts to a Service Account Group
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="regions">List of unique dSTS regions to add service accounts to</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.MoveServiceAccountsAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Move specified service accounts to a Service Account Group if all are compatible.
+            This only moves the accounts to the group but does not add any missing group properties to them.
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountIds">List of service accounts to move to the group</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.UpdateServiceAccountsAsync(System.String,System.Collections.Generic.Dictionary{System.String,Microsoft.Azure.Security.ConfigurationManagement.Contracts.ServiceAccountChangeList})">
+            <summary>
+            Update Multiple Service Accounts of the group
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountChangelists">List of changes to be made to Service accounts</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.EnforceGroupPropertiesWhatIfAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluate Service Account Group compatibility with the Service Accounts, and get the list of changes that will be applied to them if group properties are enforced
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountIds">List of service accounts to enforce properties on</param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceAccountGroupsProxy.EnforceGroupPropertiesAsync(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Enforce Service Account Group properties on the specified member service accounts if all are compatible
+            </summary>
+            <param name="groupId">Service Account Group Id</param>
+            <param name="accountIds">List of service accounts to enforce properties on</param>
+            <returns>Configuration Request Id</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceMetadataProxy">
+            <summary>
+            Provides functionality for querying metadata of onboarded services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceMetadataProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceMetadataProxy"/> class.
+            </summary>
+            <param name="dscmProxy"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.ServiceMetadataProxy.Get(System.String)">
+            <summary>
+            Retrieves metadata for an onboarded service.
+            </summary>
+            <param name="serviceTreeId">The Service Tree ID which represents the service.</param>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.Helpers.SemaphoreSlimExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Threading.SemaphoreSlim"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Helpers.SemaphoreSlimExtensions.WaitAsyncAndRunAsync(System.Threading.SemaphoreSlim,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Asynchronously waits on the semaphore before running the specified asynchronous function.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Helpers.SemaphoreSlimExtensions.WaitAsyncAndRun(System.Threading.SemaphoreSlim,System.Action)">
+            <summary>
+            Asynchronously waits on the semaphore before running the specified function.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.Helpers.SemaphoreSlimExtensions.WaitIfAsyncAndRun(System.Threading.SemaphoreSlim,System.Func{System.Boolean},System.Action)">
+            <summary>
+            If <paramref name="lockPredicate"/> returns true, asynchronously waits on the semaphore before running the specified function.
+            Else, runs the specified function without waiting on the semaphore.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ActiveContext)">
+            <summary>
+            
+            </summary>
+            <param name="activeContext"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="environment"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Uri,System.IdentityModel.Tokens.SecurityToken)">
+            <summary>
+            
+            </summary>
+            <param name="environment"></param>
+            <param name="certificate"></param>
+            <param name="clientHomeStsEndpoint"></param>
+            <param name="actAsToken"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.#ctor(Microsoft.Azure.Security.ConfigurationManagement.Client.Authentication.ServiceEnvironment,System.String,System.IdentityModel.Tokens.SecurityToken)">
+            <summary>
+            
+            </summary>
+            <param name="environment"></param>
+            <param name="msiName"></param>
+            <param name="actAsToken"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.Finalize">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.ActiveDirectory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.ConfigurationRequest">
+            <summary>
+            Provides functionality for querying configuration requests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.Dsts">
+            <summary>
+            Provides functionality for managing dSTS configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.Jit">
+            <summary>
+            Provides functionality for managing JIT configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.AccessMonitoring">
+            <summary>
+            Provides functionality for managing Access Monitoring configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.ServiceMetadata">
+            <summary>
+            Provides functionality for querying metadata of onboarded services.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.DsmsProxy">
+            <summary>
+            Provides functionality for managing dsms configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.TimeoutSeconds">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.AuthenticationContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.WaitForConfigurationRequestCompletion(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Microsoft.Azure.Security.ConfigurationManagement.Client.DscmProxy.Dispose(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="disposing"></param>
+        </member>
+    </members>
+</doc>

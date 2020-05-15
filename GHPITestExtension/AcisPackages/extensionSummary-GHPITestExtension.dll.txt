@@ -1,0 +1,5 @@
+Extension Name: GHPITestAction
+Extension Version: 1.0
+
+Operations follow
+	Greetings

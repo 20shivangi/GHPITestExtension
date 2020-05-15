@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Azure.DataProtection.Model</name>
+    </assembly>
+    <members>
+        <member name="M:Azure.DataProtection.Model.ExceptionExtensions.GetExceptionForHR(System.UInt32)">
+            <summary>
+            If <paramref name="status"/> is actually an NTSTATUS value, convert it to an 
+            equivalent HRESULT so we can display a human-readable exception message.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IDstsSubjectNameIdentityConfig">
+            <summary>
+            Details for a subject name/issuer-based dSTS client identity
+            to use when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IDstsSubjectNameIdentityConfig.Certificate">
+            <summary>
+            The certificate to use for dSTS authentication. The certificate must have a private key.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IDstsSubjectNameIdentityConfig.HomeDsts">
+            <summary>
+            The full URI to the client's home dSTS, if cross-region authentication is required.
+            For example: https://co2agg04-dsts.dsts.core.azure-test.net/v2/wstrust/13/certificate
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IKeyInfo">
+            <summary>
+            Persisted Key info interface
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IKeyInfo.Name">
+            <summary>
+            Name of the key
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IKeyInfo.AlgId">
+            <summary>
+            Crypto algorithm Id
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IKeyInfo.Flags">
+            <summary>
+            Flags. Only MachineKey flags is used.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IKeyStoreFactory">
+            <summary>
+            Key Store factory interface
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IKeyStoreFactory.Open(System.String)">
+            <summary>
+            Opens Key Store provider.
+            </summary>
+            <param name="storeName">The name of Key Store provider</param>
+            <returns>Instance of the Key Store</returns>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IKeyStore">
+            <summary>
+            Key Store interface
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IKeyStore.Name">
+            <summary>
+            The name of the key store.
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IKeyStore.EnumerateKeysInfo(Azure.DataProtection.Model.KeyStoreFlags)">
+            <summary>
+            Enumerate keys in the Key Store
+            </summary>
+            <param name="flags">NCrypt API flags</param>
+            <returns>List of persisted key names</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IKeyStore.CreateKeyDerivationSp800d108(Azure.DataProtection.Model.KeyStoreFlags,System.String,System.String,System.Byte[],System.String)">
+            <summary>
+            Creates persisted KDF Parameters tobe used for key derivation.
+            </summary>
+            <param name="flags">NCrypt API flags</param>
+            <param name="kdfLabel">KDF label parameter</param>
+            <param name="kdfContext">KDF context parameter</param>
+            <param name="keyMaterial">KDF key material</param>
+            <param name="keyName">Key name to be created</param>
+        </member>
+        <member name="T:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig">
+            <summary>
+            Details for a subject name/issuer-based dSTS client identity
+            to use when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig.Certificate">
+            <summary>
+            The certificate to use for dSTS authentication. The certificate must have a private key.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig.HomeDsts">
+            <summary>
+            The full URI to the client's home dSTS, if cross-region authentication is required.
+            For example: https://co2agg04-dsts.dsts.core.azure-test.net/v2/wstrust/13/certificate
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig.#ctor(System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig"/> class with
+            the specified certificate.
+            </summary>
+            <param name="certificate">The certificate to use for dSTS authentication.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="certificate"/> is null.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="certificate"/> does not have a private key.</exception>
+        </member>
+        <member name="M:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig.#ctor(System.Security.Cryptography.X509Certificates.X509Certificate2,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Azure.DataProtection.Model.Kds.DstsSubjectNameIdentityConfig"/> class with
+            the specified certificate and client home dSTS.
+            </summary>
+            <param name="certificate">The certificate to use for dSTS authentication.</param>
+            <param name="homeDsts">The full URI to the client's home dSTS, if cross-region authentication is required.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="certificate"/> is null.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="certificate"/> does not have a private key.</exception>
+        </member>
+        <member name="T:Azure.DataProtection.Model.Kds.CertIdentityConfig">
+            <summary>
+            Cert Identity Configuration
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.CertIdentityConfig.Thumbprint">
+            <summary>
+            Certificate thumbprint
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.CertIdentityConfig.Location">
+            <summary>
+            Store location where to find the certificate.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.Kds.DstsIdentityConfig">
+            <summary>
+            Details for a certificate-based dSTS client identity to use
+            when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.DstsIdentityConfig.Thumbprint">
+            <summary>
+            The thumbprint of the identity certificate to use.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.DstsIdentityConfig.Location">
+            <summary>
+            The <see cref="T:System.Security.Cryptography.X509Certificates.StoreLocation"/> where the certificate should be found.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.DstsIdentityConfig.HomeDsts">
+            <summary>
+            The full URI to the client's home dSTS, if cross-region authentication is required.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.Kds.ManagedServiceIdentityConfig">
+            <summary>
+            Details for a dSTS managed service identity (MSI) to use
+            when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.Kds.ManagedServiceIdentityConfig.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Azure.DataProtection.Model.Kds.ManagedServiceIdentityConfig"/> class.
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.Kds.ManagedServiceIdentityConfig.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Azure.DataProtection.Model.Kds.ManagedServiceIdentityConfig"/> class with the specified client identity name.
+            </summary>
+            <param name="serviceName">The name of the client identity to authenticate as when communicating with the dKDS service.</param>
+        </member>
+        <member name="P:Azure.DataProtection.Model.Kds.ManagedServiceIdentityConfig.ServiceName">
+            <summary>
+            The name of the MSI to use when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.KeyStoreFlags">
+            <summary>
+            KeyStoreFlags
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.KeyStoreFlags.None">
+            <summary>
+            Use default settings
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.KeyStoreFlags.MachineKey">
+            <summary>
+            Allow to override previously registered settings
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.KeyStoreFlags.Silent">
+            <summary>
+            Allow to override previously registered settings
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.KeyStoreFlags.OverrideKey">
+            <summary>
+            Allow to override previously created key
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.ProtectRequestContext">
+            <summary>
+            Request context for a protect operation.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.RegisterProviderFlags">
+            <summary>
+            RegisterProviderFlags
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.RegisterProviderFlags.None">
+            <summary>
+            Use default settings
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.RegisterProviderFlags.OverrideSettings">
+            <summary>
+            Allow to override previously registered settings
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.RegisterProviderFlags.MachineKey">
+            <summary>
+            Allow to override previously registered settings
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.RegisterProviderFlags.Silent">
+            <summary>
+            Allow to override previously registered settings
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.CryptoOperationType">
+            <summary>
+            Crypto Operation Type
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IDstsIdentityConfig">
+            <summary>
+            Details for a certificate-based dSTS client identity to use
+            when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IDstsIdentityConfig.HomeDsts">
+            <summary>
+            The full URI to the client's home dSTS, if cross-region authentication is required.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.ICertIdentityConfig">
+            <summary>
+            Details for a certificate-based identity.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.ICertIdentityConfig.Thumbprint">
+            <summary>
+            The thumbprint of the identity certificate to use.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.ICertIdentityConfig.Location">
+            <summary>
+            The <see cref="T:System.Security.Cryptography.X509Certificates.StoreLocation"/> where the certificate should be found.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IManagedServiceIdentityConfig">
+            <summary>
+            Details for a dSTS managed service identity (MSI) to use
+            when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.IManagedServiceIdentityConfig.ServiceName">
+            <summary>
+            The name of the MSI to use when authenticating to the dKDS service.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IProtectionDescriptor">
+            <summary>
+            Protects data for one or more recipients. 
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionDescriptor.Protect(System.Byte[])">
+            <summary>
+            Protects data using a specified protection descriptor.
+            </summary>
+            <param name="data">The plaintext data to protect.</param>
+            <returns>The protected blob.</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionDescriptor.Protect(System.Byte[],Azure.DataProtection.Model.ProtectRequestContext)">
+            <summary>
+            Protects data using a specified protection descriptor.
+            </summary>
+            <param name="data">The plaintext data to protect.</param>
+            <param name="requestContext">The request context to use for the operation.</param>
+            <returns>The protected blob.</returns>
+        </member>
+        <member name="T:Azure.DataProtection.Model.IProtectionFactory">
+            <summary>
+            Azure Data Protection factory interface
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.InitializeDefaultProviders">
+            <summary>
+            Initialize default Protection Providers.
+                CERTIFICATE=
+                LOCAL=user
+                LOCAL=machine
+            </summary>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.Create(System.String)">
+            <summary>
+            Creates Protection Descriptor from the string value.
+            </summary>
+            <param name="descriptor">Protection Descriptor string</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.CreateInKeyStore(System.String,System.String)">
+            <summary>
+            Helper function that creates Protection Descriptor for a persisted key in KeyStore.
+            </summary>
+            <param name="keyName">Persisted key name</param>
+            <param name="storeName">Key Store name</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.Create(System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Helper function that creates Protection Descriptor for a certificate.
+            </summary>
+            <param name="certificate">A certificate, which Public Key will be used to protect a secret.</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.Open(System.Byte[])">
+            <summary>
+            Opens Protection Descriptor from an encrypted blob.
+            </summary>
+            <param name="encrypted">Encrypted blob.</param>
+            <returns>Instance of the Protection Descriptor</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.Unprotect(System.Byte[])">
+            <summary>
+            Unprotects data.
+            </summary>
+            <param name="data">The protected blob to unprotect.</param>
+            <returns>The unprotected plaintext data.</returns>
+        </member>
+        <member name="M:Azure.DataProtection.Model.IProtectionFactory.Unprotect(System.Byte[],Azure.DataProtection.Model.UnprotectRequestContext)">
+            <summary>
+            Unprotects data.
+            </summary>
+            <param name="data">The protected blob to unprotect.</param>
+            <param name="requestContext">The request context to use for the operation.</param>
+            <returns>The unprotected plaintext data.</returns>
+        </member>
+        <member name="T:Azure.DataProtection.Model.NameFor">
+            <summary>
+            Names declarations
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.NameFor.DefaultProvider">
+            <summary>
+            Default providers names
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.NameFor.Protector">
+            <summary>
+            Protector names
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.NameFor.Protector.Certificate">
+            <summary>
+            Used to protect secrets using X509 Certificate
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.NameFor.Protector.KeyStore">
+            <summary>
+            Used to protect secrets using persisted keys in Key Store
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.NameFor.KeyStore">
+            <summary>
+            Key Store names
+            </summary>
+        </member>
+        <member name="F:Azure.DataProtection.Model.NameFor.KeyStore.MicrosoftSoftwareKeyStorageProvider">
+            <summary>
+            Microsoft Software Key Storage Provider
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.RequestContextBase">
+            <summary>
+            Request context properties common to protect and unprotect operations.
+            </summary>
+        </member>
+        <member name="P:Azure.DataProtection.Model.RequestContextBase.CorrelationID">
+            <summary>
+            The correlation ID of the protect or unprotect operation.
+            This can be set to correlate between multiple protect and unprotect operations, 
+            as well as to correlate between the client and the dKDS service.
+            </summary>
+        </member>
+        <member name="T:Azure.DataProtection.Model.UnprotectRequestContext">
+            <summary>
+            Request context for an unprotect operation.
+            </summary>
+        </member>
+    </members>
+</doc>
