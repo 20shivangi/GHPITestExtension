@@ -1,4 +1,3 @@
-C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\obj\Debug\GHPITestExtension.csproj.CoreCompileInputs.cache
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\bin\Debug\GHPITestExtension.dll.config
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\bin\Debug\GHPITestExtension.dll
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\bin\Debug\GHPITestExtension.pdb
@@ -24,6 +23,7 @@ C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\bin\Debug\Mic
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\bin\Debug\Microsoft.WindowsAzure.Wapd.Acis.Contracts.xml
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\bin\Debug\Newtonsoft.Json.xml
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\obj\Debug\GHPITestExtension.csprojAssemblyReference.cache
+C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\obj\Debug\GHPITestExtension.csproj.CoreCompileInputs.cache
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\obj\Debug\GHPITestExtension.csproj.CopyComplete
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\obj\Debug\GHPITestExtension.dll
 C:\Users\shmittal\source\repos\GHPITestExtension\GHPITestExtension\obj\Debug\GHPITestExtension.pdb
